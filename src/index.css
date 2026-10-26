@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+* {
+  font-family: 'Prompt', 'Noto Sans Thai', 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-num {
+  font-family: 'Plus Jakarta Sans', 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Stunning Neon Glow & Running Light Border Animation */
+@keyframes neonBorderRun {
+  0% { border-color: rgba(236, 72, 153, 0.4); box-shadow: 0 0 15px rgba(236, 72, 153, 0.3), inset 0 0 15px rgba(244, 114, 182, 0.2); }
+  50% { border-color: rgba(244, 63, 94, 0.9); box-shadow: 0 0 25px rgba(244, 63, 94, 0.6), inset 0 0 20px rgba(236, 72, 153, 0.4); }
+  100% { border-color: rgba(236, 72, 153, 0.4); box-shadow: 0 0 15px rgba(236, 72, 153, 0.3), inset 0 0 15px rgba(244, 114, 182, 0.2); }
+}
+
+@keyframes cuteDance {
+  0% { transform: translateY(0px) rotate(0deg) scale(1); }
+  25% { transform: translateY(-6px) rotate(-6deg) scale(1.05); }
+  50% { transform: translateY(0px) rotate(0deg) scale(1); }
+  75% { transform: translateY(-6px) rotate(6deg) scale(1.05); }
+  100% { transform: translateY(0px) rotate(0deg) scale(1); }
+}
+
+@keyframes rainbowGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-neon-running {
+  animation: neonBorderRun 3s ease-in-out infinite;
+}
+
+.animate-dance {
+  animation: cuteDance 2s ease-in-out infinite;
+}
+
+.bg-gradient-pink-mesh {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fbcfe8 30%, #f472b6 70%, #db2777 100%);
+  background-size: 200% 200%;
+  animation: rainbowGradient 8s ease infinite;
+}
+
+.bg-gradient-dark-mesh {
+  background: linear-gradient(135deg, #180514 0%, #2e0824 30%, #581c45 70%, #831843 100%);
+  background-size: 200% 200%;
+  animation: rainbowGradient 8s ease infinite;
+}
+
+@layer utilities {
+  .glass-card-light {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 2px solid rgba(244, 114, 182, 0.4);
+    box-shadow: 
+      0 12px 35px -4px rgba(236, 72, 153, 0.15),
+      0 4px 15px -2px rgba(244, 114, 182, 0.08),
+      inset 0 1px 3px 0 rgba(255, 255, 255, 1);
+  }
+
+  .glass-card-dark {
+    background: rgba(35, 12, 30, 0.82);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 2px solid rgba(244, 114, 182, 0.35);
+    box-shadow: 
+      0 15px 40px -5px rgba(236, 72, 153, 0.3),
+      inset 0 1px 3px 0 rgba(244, 114, 182, 0.25);
+  }
+
+  .glass-inner-light {
+    background: rgba(253, 242, 248, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(251, 207, 232, 0.9);
+  }
+
+  .glass-inner-dark {
+    background: rgba(60, 20, 50, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(244, 114, 182, 0.25);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

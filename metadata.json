@@ -1,0 +1,6 @@
+{
+  "name": "ค่าใช้จ่ายภายในเดือนนี้",
+  "description": "แอพพลิเคชันบันทึกค่าใช้จ่าย สรุปผลกำไร-ขาดทุน ซื้อมาขายไป และการลงทุน พร้อมกราฟิกสรุปผลและแจ้งเตือนงบประมาณ",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
