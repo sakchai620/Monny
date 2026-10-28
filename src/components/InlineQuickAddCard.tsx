@@ -388,15 +388,15 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
         <div className="pt-1">
           <button
             type="submit"
-            className={`w-full py-3 px-4 rounded-2xl font-bold text-xs sm:text-sm text-white shadow-md active:scale-98 transition-all flex items-center justify-center gap-2 ${
+            className={`w-full py-3.5 px-5 rounded-2xl font-black text-xs sm:text-sm text-white shadow-lg shadow-pink-600/30 active:scale-98 transition-all flex items-center justify-center gap-2 border border-white/20 cursor-pointer ${
               txType === 'income'
-                ? 'bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 shadow-pink-600/30'
-                : 'bg-gradient-to-r from-pink-700 to-rose-700 hover:from-pink-800 hover:to-rose-800 shadow-pink-700/30'
+                ? 'bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-600 shadow-emerald-600/30'
+                : 'bg-gradient-to-r from-pink-600 via-rose-600 to-pink-700 hover:from-pink-500 hover:to-rose-600 shadow-pink-600/30'
             }`}
           >
-            <Plus className="w-4 h-4" />
-            <span>
-              {txType === 'income' ? 'บันทึกเงินเข้า' : 'บันทึกรายจ่าย'} (
+            <Plus className="w-5 h-5 stroke-[3]" />
+            <span className="tracking-wide">
+              {txType === 'income' ? '+ บันทึกเงินเข้า' : '+ บันทึกรายจ่าย'} (
               {amount ? `฿${parseFloat(amount || '0').toLocaleString()}` : 'ระบุยอดเงิน'})
             </span>
           </button>

@@ -10,6 +10,7 @@ import {
   Gift,
   Building,
   MoreHorizontal,
+  ArrowLeft,
 } from 'lucide-react';
 import { StandardIncomeTransaction, IncomeCategory } from '../types/finance';
 import { formatThaiCurrency, formatThaiDate } from '../utils/financeCalculations';
@@ -19,6 +20,7 @@ interface IncomesListProps {
   isDarkMode?: boolean;
   onDelete: (id: string) => void;
   onAddNew: () => void;
+  onBackToOverview?: () => void;
 }
 
 export const IncomesList: React.FC<IncomesListProps> = ({
@@ -26,6 +28,7 @@ export const IncomesList: React.FC<IncomesListProps> = ({
   isDarkMode = false,
   onDelete,
   onAddNew,
+  onBackToOverview,
 }) => {
   const totalIncome = incomes.reduce((sum, item) => sum + item.amount, 0);
 
@@ -72,6 +75,20 @@ export const IncomesList: React.FC<IncomesListProps> = ({
 
   return (
     <div className="space-y-4">
+      {/* Top Navigation Back Bar */}
+      {onBackToOverview && (
+        <div className="flex items-center justify-between gap-2">
+          <button
+            type="button"
+            onClick={onBackToOverview}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs font-black shadow-md shadow-pink-500/20 active:scale-95 transition-all cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4 stroke-[3]" />
+            <span>← ย้อนกลับไปหน้าภาพรวม</span>
+          </button>
+        </div>
+      )}
+
       {/* Header bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>

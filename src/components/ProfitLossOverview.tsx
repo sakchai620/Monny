@@ -122,28 +122,32 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
         </div>
 
         {/* Primary Cash Flow Bar: 1.เงินเข้า - 2.ค่าใช้จ่าย = 3.เงินคงเหลือ */}
-        <div className="relative z-10 grid grid-cols-3 gap-1.5 sm:gap-3 pt-3.5 mt-3 border-t border-slate-200/70 dark:border-white/10 text-xs min-w-0">
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-3.5 mt-3 border-t border-slate-200/70 dark:border-white/10 text-xs min-w-0">
           {/* Card 1: เงินเข้า */}
           <div
             onClick={() => onSelectTab('income')}
-            className={`p-2.5 sm:p-3.5 rounded-2xl border cursor-pointer transition-all min-w-0 overflow-hidden ${
+            className={`p-3 sm:p-4 rounded-2xl border cursor-pointer transition-all min-w-0 overflow-hidden group shadow-xs ${
               isDarkMode
-                ? 'glass-inner-dark hover:border-emerald-500/40'
-                : 'glass-inner-light hover:border-emerald-300'
+                ? 'glass-inner-dark hover:border-emerald-500/50 hover:bg-slate-800/90'
+                : 'glass-inner-light hover:border-emerald-400 hover:bg-emerald-50/50'
             }`}
           >
-            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mb-1 min-w-0 gap-0.5">
-              <span className="flex items-center gap-1 min-w-0">
-                <Wallet className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                <span className="font-bold text-slate-700 dark:text-slate-300 truncate">1. เงินเข้า</span>
+            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px] sm:text-xs mb-1.5 min-w-0 gap-1">
+              <span className="flex items-center gap-1.5 min-w-0">
+                <div className="w-5 h-5 rounded-lg bg-emerald-500/15 flex items-center justify-center shrink-0">
+                  <Wallet className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                </div>
+                <span className="font-extrabold text-slate-800 dark:text-slate-200 truncate">1. เงินเข้า</span>
               </span>
-              <ArrowRight className="w-3 h-3 text-slate-400 shrink-0 hidden xs:block" />
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-0.5 transition-all shrink-0" />
             </div>
-            <div className="text-sm sm:text-lg md:text-xl font-extrabold text-emerald-600 dark:text-emerald-400 font-num tabular-nums truncate">
+
+            <div className="text-base sm:text-xl md:text-2xl font-black text-emerald-600 dark:text-emerald-400 font-num tabular-nums truncate my-1">
               +{formatThaiCurrency(summary.totalIncome)}
             </div>
-            <div className="text-[9px] sm:text-[10px] text-slate-400 mt-1 flex items-center justify-between gap-0.5 min-w-0">
-              <span className="truncate">เงินเดือน/รายรับ</span>
+
+            <div className="text-[10px] sm:text-[11px] text-slate-400 mt-2 flex items-center justify-between gap-1 min-w-0 pt-2 border-t border-slate-100 dark:border-white/5">
+              <span className="truncate">เงินเดือน / รายรับ</span>
               {onAddNew && (
                 <button
                   type="button"
@@ -151,9 +155,10 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
                     e.stopPropagation();
                     onAddNew('income');
                   }}
-                  className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline shrink-0 whitespace-nowrap ml-0.5"
+                  className="px-2.5 py-1 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-[10px] shadow-sm shadow-emerald-500/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-0.5 shrink-0"
                 >
-                  + เพิ่ม
+                  <Plus className="w-3 h-3" />
+                  <span>เพิ่ม</span>
                 </button>
               )}
             </div>
@@ -162,23 +167,27 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
           {/* Card 2: รายจ่าย */}
           <div
             onClick={() => onSelectTab('expense')}
-            className={`p-2.5 sm:p-3.5 rounded-2xl border cursor-pointer transition-all min-w-0 overflow-hidden ${
+            className={`p-3 sm:p-4 rounded-2xl border cursor-pointer transition-all min-w-0 overflow-hidden group shadow-xs ${
               isDarkMode
-                ? 'glass-inner-dark hover:border-rose-500/40'
-                : 'glass-inner-light hover:border-rose-300'
+                ? 'glass-inner-dark hover:border-rose-500/50 hover:bg-slate-800/90'
+                : 'glass-inner-light hover:border-rose-400 hover:bg-rose-50/50'
             }`}
           >
-            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mb-1 min-w-0 gap-0.5">
-              <span className="flex items-center gap-1 min-w-0">
-                <CreditCard className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                <span className="font-bold text-slate-700 dark:text-slate-300 truncate">2. รายจ่าย</span>
+            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px] sm:text-xs mb-1.5 min-w-0 gap-1">
+              <span className="flex items-center gap-1.5 min-w-0">
+                <div className="w-5 h-5 rounded-lg bg-rose-500/15 flex items-center justify-center shrink-0">
+                  <CreditCard className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                </div>
+                <span className="font-extrabold text-slate-800 dark:text-slate-200 truncate">2. รายจ่าย</span>
               </span>
-              <ArrowRight className="w-3 h-3 text-slate-400 shrink-0 hidden xs:block" />
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-rose-500 group-hover:translate-x-0.5 transition-all shrink-0" />
             </div>
-            <div className="text-sm sm:text-lg md:text-xl font-extrabold text-rose-600 dark:text-rose-400 font-num tabular-nums truncate">
+
+            <div className="text-base sm:text-xl md:text-2xl font-black text-rose-600 dark:text-rose-400 font-num tabular-nums truncate my-1">
               -{formatThaiCurrency(summary.totalMajorExpenses)}
             </div>
-            <div className="text-[9px] sm:text-[10px] text-slate-400 mt-1 flex items-center justify-between gap-0.5 min-w-0">
+
+            <div className="text-[10px] sm:text-[11px] text-slate-400 mt-2 flex items-center justify-between gap-1 min-w-0 pt-2 border-t border-slate-100 dark:border-white/5">
               <span className="truncate">จ่ายแล้ว {formatThaiCurrency(summary.paidExpenses)}</span>
               {onAddNew && (
                 <button
@@ -187,9 +196,10 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
                     e.stopPropagation();
                     onAddNew('major_expense');
                   }}
-                  className="text-rose-600 dark:text-rose-400 font-bold hover:underline shrink-0 whitespace-nowrap ml-0.5"
+                  className="px-2.5 py-1 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-[10px] shadow-sm shadow-rose-500/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-0.5 shrink-0"
                 >
-                  + เพิ่ม
+                  <Plus className="w-3 h-3" />
+                  <span>เพิ่ม</span>
                 </button>
               )}
             </div>
@@ -197,18 +207,25 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
 
           {/* Card 3: คงเหลือ */}
           <div
-            className={`p-2.5 sm:p-3.5 rounded-2xl border transition-all min-w-0 overflow-hidden ${
-              isDarkMode ? 'glass-inner-dark' : 'glass-inner-light'
+            onClick={() => onSelectTab('all')}
+            className={`p-3 sm:p-4 rounded-2xl border cursor-pointer transition-all min-w-0 overflow-hidden group shadow-xs ${
+              isDarkMode
+                ? 'glass-inner-dark hover:border-indigo-500/50 hover:bg-slate-800/90'
+                : 'glass-inner-light hover:border-indigo-400 hover:bg-indigo-50/50'
             }`}
           >
-            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mb-1 min-w-0 gap-0.5">
-              <span className="flex items-center gap-1 min-w-0">
-                <Sparkles className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                <span className="font-bold text-slate-700 dark:text-slate-300 truncate">3. คงเหลือ</span>
+            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px] sm:text-xs mb-1.5 min-w-0 gap-1">
+              <span className="flex items-center gap-1.5 min-w-0">
+                <div className="w-5 h-5 rounded-lg bg-indigo-500/15 flex items-center justify-center shrink-0">
+                  <Sparkles className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+                </div>
+                <span className="font-extrabold text-slate-800 dark:text-slate-200 truncate">3. คงเหลือ</span>
               </span>
+              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-500 group-hover:translate-x-0.5 transition-all shrink-0" />
             </div>
+
             <div
-              className={`text-sm sm:text-lg md:text-xl font-extrabold font-num tabular-nums truncate ${
+              className={`text-base sm:text-xl md:text-2xl font-black font-num tabular-nums truncate my-1 ${
                 summary.netCashFlow > 0
                   ? 'text-emerald-600 dark:text-emerald-400'
                   : summary.netCashFlow < 0
@@ -218,8 +235,20 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
             >
               {formatThaiCurrency(summary.netCashFlow, true)}
             </div>
-            <div className="text-[9px] sm:text-[10px] text-slate-400 mt-1 truncate">
-              เงินเข้า - รายจ่าย
+
+            <div className="text-[10px] sm:text-[11px] text-slate-400 mt-2 flex items-center justify-between gap-1 min-w-0 pt-2 border-t border-slate-100 dark:border-white/5">
+              <span className="truncate">เงินเข้า - รายจ่าย</span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSelectTab('all');
+                }}
+                className="px-2.5 py-1 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-[10px] shadow-sm shadow-indigo-600/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-0.5 shrink-0"
+              >
+                <span>ดูทั้งหมด</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
             </div>
           </div>
         </div>

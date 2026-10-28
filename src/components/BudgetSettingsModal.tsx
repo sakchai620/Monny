@@ -47,7 +47,7 @@ export const BudgetSettingsModal: React.FC<BudgetSettingsModalProps> = ({
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = parseFloat(amount) || 0;
-    if (parsed <= 0) return;
+    if (isNaN(parsed) || parsed < 0) return;
 
     onSaveBudget({
       ...budget,

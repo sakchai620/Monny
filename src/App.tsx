@@ -695,39 +695,39 @@ export default function App() {
         )}
 
         <div className="w-full space-y-4 pb-24">
-          {/* 2. Refined Segmented Control Tab Bar */}
+          {/* 2. High-Contrast Segmented Control Tab Bar */}
           <div
-            className={`p-1.5 rounded-2xl border text-xs overflow-x-auto no-scrollbar flex items-center gap-1 shadow-xs min-w-0 ${
+            className={`p-2 rounded-2xl border-2 text-xs overflow-x-auto no-scrollbar flex items-center gap-1.5 sm:gap-2 shadow-xl backdrop-blur-md min-w-0 ${
               isDarkMode
-                ? 'bg-slate-900/80 border-white/10'
-                : 'bg-slate-200/50 border-slate-200/80'
+                ? 'bg-slate-900/95 border-pink-500/40 text-slate-100 shadow-slate-950/80'
+                : 'bg-white/98 border-pink-300 text-slate-900 shadow-pink-200/60'
             }`}
           >
             <button
               onClick={() => setActiveTab('overview')}
-              className={`flex-1 min-w-[72px] sm:min-w-0 whitespace-nowrap py-2 px-2 sm:px-3 rounded-xl font-bold transition-all text-center text-[11px] sm:text-xs flex items-center justify-center gap-1 ${
+              className={`flex-1 min-w-[85px] sm:min-w-0 whitespace-nowrap py-2.5 px-3 rounded-xl font-extrabold transition-all text-center text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer border ${
                 activeTab === 'overview'
-                  ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs ring-1 ring-black/5 dark:ring-white/10'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white border-pink-400 shadow-md shadow-pink-500/40 scale-102 ring-2 ring-pink-300/80'
+                  : 'bg-slate-100 dark:bg-slate-800/90 text-slate-800 dark:text-slate-100 border-slate-200/90 dark:border-slate-700/80 hover:bg-pink-100/80 dark:hover:bg-slate-700 hover:text-pink-700 dark:hover:text-pink-300 shadow-2xs'
               }`}
             >
               <span>📊 ภาพรวม</span>
             </button>
             <button
               onClick={() => setActiveTab('income')}
-              className={`flex-1 min-w-[72px] sm:min-w-0 whitespace-nowrap py-2 px-2 sm:px-2.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-1 text-[11px] sm:text-xs ${
+              className={`flex-1 min-w-[85px] sm:min-w-0 whitespace-nowrap py-2.5 px-3 rounded-xl font-extrabold transition-all text-center flex items-center justify-center gap-1.5 text-xs sm:text-sm cursor-pointer border ${
                 activeTab === 'income'
-                  ? 'bg-emerald-500 text-white shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white border-emerald-400 shadow-md shadow-emerald-500/40 scale-102 ring-2 ring-emerald-300/80'
+                  : 'bg-slate-100 dark:bg-slate-800/90 text-slate-800 dark:text-slate-100 border-slate-200/90 dark:border-slate-700/80 hover:bg-emerald-100/80 dark:hover:bg-slate-700 hover:text-emerald-700 dark:hover:text-emerald-300 shadow-2xs'
               }`}
             >
-              <Wallet className="w-3.5 h-3.5 shrink-0" />
+              <Wallet className="w-4 h-4 shrink-0" />
               <span>เงินเข้า</span>
               <span
-                className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold shrink-0 ${
+                className={`ml-0.5 px-2 py-0.5 rounded-full text-[10px] font-black shrink-0 ${
                   activeTab === 'income'
-                    ? 'bg-white/20 text-white'
-                    : 'bg-slate-300/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                    ? 'bg-white/30 text-white shadow-xs'
+                    : 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50'
                 }`}
               >
                 {incomesCount}
@@ -735,19 +735,19 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveTab('major_expense')}
-              className={`flex-1 min-w-[72px] sm:min-w-0 whitespace-nowrap py-2 px-2 sm:px-2.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-1 text-[11px] sm:text-xs ${
+              className={`flex-1 min-w-[85px] sm:min-w-0 whitespace-nowrap py-2.5 px-3 rounded-xl font-extrabold transition-all text-center flex items-center justify-center gap-1.5 text-xs sm:text-sm cursor-pointer border ${
                 activeTab === 'major_expense'
-                  ? 'bg-rose-500 text-white shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-gradient-to-r from-rose-500 via-pink-600 to-rose-600 text-white border-rose-400 shadow-md shadow-rose-500/40 scale-102 ring-2 ring-rose-300/80'
+                  : 'bg-slate-100 dark:bg-slate-800/90 text-slate-800 dark:text-slate-100 border-slate-200/90 dark:border-slate-700/80 hover:bg-rose-100/80 dark:hover:bg-slate-700 hover:text-rose-700 dark:hover:text-rose-300 shadow-2xs'
               }`}
             >
-              <CreditCard className="w-3.5 h-3.5 shrink-0" />
+              <CreditCard className="w-4 h-4 shrink-0" />
               <span>รายจ่าย</span>
               <span
-                className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold shrink-0 ${
+                className={`ml-0.5 px-2 py-0.5 rounded-full text-[10px] font-black shrink-0 ${
                   activeTab === 'major_expense'
-                    ? 'bg-white/20 text-white'
-                    : 'bg-slate-300/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                    ? 'bg-white/30 text-white shadow-xs'
+                    : 'bg-rose-100 dark:bg-rose-900/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-700/50'
                 }`}
               >
                 {majorExpensesCount}
@@ -755,18 +755,18 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveTab('all')}
-              className={`flex-1 min-w-[72px] sm:min-w-0 whitespace-nowrap py-2 px-2 sm:px-2.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-1 text-[11px] sm:text-xs ${
+              className={`flex-1 min-w-[85px] sm:min-w-0 whitespace-nowrap py-2.5 px-3 rounded-xl font-extrabold transition-all text-center flex items-center justify-center gap-1.5 text-xs sm:text-sm cursor-pointer border ${
                 activeTab === 'all'
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-700 text-white border-indigo-400 shadow-md shadow-indigo-600/40 scale-102 ring-2 ring-indigo-300/80'
+                  : 'bg-slate-100 dark:bg-slate-800/90 text-slate-800 dark:text-slate-100 border-slate-200/90 dark:border-slate-700/80 hover:bg-indigo-100/80 dark:hover:bg-slate-700 hover:text-indigo-700 dark:hover:text-indigo-300 shadow-2xs'
               }`}
             >
               <span>📋 ทั้งหมด</span>
               <span
-                className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold shrink-0 ${
+                className={`ml-0.5 px-2 py-0.5 rounded-full text-[10px] font-black shrink-0 ${
                   activeTab === 'all'
-                    ? 'bg-white/20 text-white'
-                    : 'bg-slate-300/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
+                    ? 'bg-white/30 text-white shadow-xs'
+                    : 'bg-indigo-100 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700/50'
                 }`}
               >
                 {transactions.length}
@@ -785,6 +785,7 @@ export default function App() {
                 onSelectTab={(tab) => {
                   if (tab === 'income') setActiveTab('income');
                   else if (tab === 'expense') setActiveTab('major_expense');
+                  else if (tab === 'all') setActiveTab('all');
                 }}
               />
 
@@ -813,6 +814,7 @@ export default function App() {
               isDarkMode={isDarkMode}
               onDelete={handleDeleteTransaction}
               onAddNew={() => openAddModal('income')}
+              onBackToOverview={() => setActiveTab('overview')}
             />
           )}
 
@@ -827,6 +829,7 @@ export default function App() {
               onTogglePaid={handleTogglePaidExpense}
               onDelete={handleDeleteTransaction}
               onAddNew={() => openAddModal('major_expense')}
+              onBackToOverview={() => setActiveTab('overview')}
             />
           )}
 
@@ -838,6 +841,7 @@ export default function App() {
               onTogglePaid={handleTogglePaidExpense}
               onDelete={handleDeleteTransaction}
               onAddNew={() => openAddModal('major_expense')}
+              onBackToOverview={() => setActiveTab('overview')}
             />
           )}
 
