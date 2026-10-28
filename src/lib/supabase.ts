@@ -20,20 +20,91 @@ export const createSupabaseClient = (anonKey?: string) => {
 
 export const supabase = createSupabaseClient();
 
+export function mapSupabaseToTransaction(row: any): Transaction {
+  const amount = Number(row.amount) || 0;
+  const createdAt = row.created_at ? new Date(row.created_at).getTime() : Date.now();
+
+  if (row.type === 'income') {
+    return {
+      id: row.id,
+      type: 'income',
+      title: row.title || 'รายรับ',
+      amount: amount,
+      category: row.category || 'other',
+      date: row.date || new Date().toISOString().slice(0, 10),
+      note: row.note || '',
+      createdAt,
+    };
+  } else if (row.type === 'major_expense') {
+    return {
+      id: row.id,
+      type: 'major_expense',
+      title: row.title || 'ค่าใช้จ่าย',
+      amount: amount,
+      category: row.category || 'other_major',
+      date: row.date || new Date().toISOString().slice(0, 10),
+      isPaid: row.is_paid ?? true,
+      dueDate: row.due_date || undefined,
+      note: row.note || '',
+      createdAt,
+    };
+  } else if (row.type === 'asset_trade') {
+    return {
+      id: row.id,
+      type: 'asset_trade',
+      title: row.title || 'สินทรัพย์',
+      assetCategory: row.category || 'other',
+      buyPrice: amount,
+      sellPrice: amount,
+      buyDate: row.date || new Date().toISOString().slice(0, 10),
+      isSold: true,
+      date: row.date || new Date().toISOString().slice(0, 10),
+      note: row.note || '',
+      createdAt,
+    };
+  } else if (row.type === 'investment') {
+    return {
+      id: row.id,
+      type: 'investment',
+      title: row.title || 'การลงทุน',
+      investmentCategory: row.category || 'other',
+      investedAmount: amount,
+      currentValuation: amount,
+      status: 'holding',
+      date: row.date || new Date().toISOString().slice(0, 10),
+      note: row.note || '',
+      createdAt,
+    };
+  }
+  return {
+    id: row.id,
+    type: 'major_expense',
+    title: row.title || 'รายการทั่วไป',
+    amount: amount,
+    category: row.category || 'other_major',
+    date: row.date || new Date().toISOString().slice(0, 10),
+    isPaid: row.is_paid ?? true,
+    note: row.note || '',
+    createdAt,
+  };
+}
+
 // Database helper functions for Supabase tables
-export async function syncSupabaseTransactions(userUid: string) {
+export async function syncSupabaseTransactions(userUid: string = 'guest'): Promise<Transaction[] | null> {
   try {
     const { data, error } = await supabase
       .from('transactions')
       .select('*')
-      .eq('user_uid', userUid)
       .order('date', { ascending: false });
 
     if (error) {
       console.warn('Supabase fetch error (table may need creation):', error.message);
       return null;
     }
-    return data;
+    if (data && Array.isArray(data)) {
+      return data.map(mapSupabaseToTransaction);
+    }
+    return [];
   } catch (err) {
     console.error('Supabase sync error:', err);
     return null;
@@ -65,7 +136,7 @@ export async function saveSupabaseTransaction(userUid: string, tx: Transaction) 
 
     const payload = {
       id: tx.id,
-      user_uid: userUid,
+      user_uid: userUid || 'guest',
       type: tx.type,
       title: tx.title,
       amount,
@@ -90,8 +161,7 @@ export async function deleteSupabaseTransaction(userUid: string, id: string) {
     const { error } = await supabase
       .from('transactions')
       .delete()
-      .eq('id', id)
-      .eq('user_uid', userUid);
+      .eq('id', id);
 
     if (error) {
       console.warn('Supabase delete warning:', error.message);
@@ -100,3 +170,4 @@ export async function deleteSupabaseTransaction(userUid: string, id: string) {
     console.error('Failed to delete from Supabase:', err);
   }
 }
+

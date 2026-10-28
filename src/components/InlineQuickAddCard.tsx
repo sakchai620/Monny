@@ -143,26 +143,26 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
           : 'glass-card-light text-slate-800'
       }`}
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-3 mb-4 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
           <div
-            className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold ${
+            className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold shrink-0 ${
               txType === 'income'
                 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
                 : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
             }`}
           >
             {txType === 'income' ? (
-              <Wallet className="w-4 h-4" />
+              <Wallet className="w-4 h-4 shrink-0" />
             ) : (
-              <CreditCard className="w-4 h-4" />
+              <CreditCard className="w-4 h-4 shrink-0" />
             )}
           </div>
-          <div>
-            <h3 className="text-sm font-bold text-slate-800 dark:text-white">
+          <div className="min-w-0">
+            <h3 className="text-sm font-bold text-slate-800 dark:text-white truncate">
               บันทึกรายการด่วน (เพิ่มในหน้าเดียว)
             </h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
               เลือกจากดรอปดาวน์ หรือพิมพ์ชื่อเองได้อิสระ
             </p>
           </div>
@@ -170,7 +170,7 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
 
         {/* Segmented Toggle: เงินเข้า vs รายจ่าย */}
         <div
-          className={`p-1 rounded-2xl border flex items-center gap-1 self-start sm:self-auto ${
+          className={`p-1 rounded-2xl border flex items-center gap-1 shrink-0 whitespace-nowrap self-start xs:self-auto ${
             isDarkMode ? 'bg-slate-900/90 border-white/10' : 'bg-slate-100 border-slate-200'
           }`}
         >
@@ -181,14 +181,14 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
               setSelectedPreset('');
               setTitle('');
             }}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 ${
               txType === 'income'
                 ? 'bg-pink-600 text-white shadow-xs'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            <Wallet className="w-3.5 h-3.5" />
-            <span>+ เงินเข้า</span>
+            <Wallet className="w-3.5 h-3.5 shrink-0" />
+            <span className="whitespace-nowrap">+ เงินเข้า</span>
           </button>
 
           <button
@@ -198,14 +198,14 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
               setSelectedPreset('');
               setTitle('');
             }}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 ${
               txType === 'expense'
                 ? 'bg-rose-700 text-white shadow-xs'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            <CreditCard className="w-3.5 h-3.5" />
-            <span>- รายจ่าย</span>
+            <CreditCard className="w-3.5 h-3.5 shrink-0" />
+            <span className="whitespace-nowrap">- รายจ่าย</span>
           </button>
         </div>
       </div>
@@ -220,9 +220,9 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
             </span>
           </label>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 min-w-0">
             {/* Dropdown Select */}
-            <div className="relative">
+            <div className="relative min-w-0">
               <select
                 value={selectedPreset}
                 onChange={(e) => {
@@ -239,7 +239,7 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
                     }
                   }
                 }}
-                className={`w-full py-2.5 px-3 pr-8 rounded-2xl border text-xs font-medium appearance-none outline-none transition-all cursor-pointer ${
+                className={`w-full py-2.5 px-3 pr-8 rounded-2xl border text-xs font-medium appearance-none outline-none transition-all cursor-pointer truncate ${
                   isDarkMode
                     ? 'bg-slate-900/80 border-white/10 text-slate-200 focus:border-pink-500'
                     : 'bg-white border-slate-200 text-slate-700 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10'
@@ -252,7 +252,7 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
                   </option>
                 ))}
               </select>
-              <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-3 pointer-events-none" />
+              <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-3 pointer-events-none shrink-0" />
             </div>
 
             {/* Editable Title Input */}
@@ -266,7 +266,7 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
                   ? 'พิมพ์ชื่อรายการ หรือเลือกจากดรอปดาวน์...'
                   : 'พิมพ์ชื่อรายการ หรือเลือกจากดรอปดาวน์...'
               }
-              className={`w-full py-2.5 px-3.5 rounded-2xl border text-xs font-medium outline-none transition-all ${
+              className={`w-full py-2.5 px-3.5 rounded-2xl border text-xs font-medium outline-none transition-all min-w-0 ${
                 isDarkMode
                   ? 'bg-slate-900/80 border-white/10 text-white placeholder:text-slate-500 focus:border-pink-500'
                   : 'bg-white border-slate-200 text-slate-800 placeholder:text-slate-400 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/10'

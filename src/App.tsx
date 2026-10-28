@@ -49,8 +49,7 @@ import {
 
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from './lib/firebase.ts';
-import { AuthBar } from './components/AuthBar.tsx';
-import { saveSupabaseTransaction, deleteSupabaseTransaction } from './lib/supabase.ts';
+import { saveSupabaseTransaction, deleteSupabaseTransaction, syncSupabaseTransactions } from './lib/supabase.ts';
 
 // Modular Components
 import { BudgetBanner } from './components/BudgetBanner';
@@ -78,7 +77,6 @@ export default function App() {
   // Persistence state - Clean slate (เริ่มต้นที่ 0 ไม่มีข้อมูลจำลอง)
   const [transactions, setTransactions] = useState<Transaction[]>(() => {
     try {
-      // Purge old simulated mock data
       localStorage.removeItem('monthly_major_transactions_v2');
       const saved = localStorage.getItem('monthly_major_transactions_v3');
       if (saved) return JSON.parse(saved);
@@ -99,38 +97,60 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'overview' | 'income' | 'major_expense' | 'all'>('overview');
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  // Sync Firebase Auth with Cloud SQL
+  // Auto Sync Supabase on App Mount
+  useEffect(() => {
+    const loadFromSupabase = async () => {
+      try {
+        const supabaseData = await syncSupabaseTransactions(currentUser?.uid || 'guest');
+        if (supabaseData && supabaseData.length > 0) {
+          setTransactions(supabaseData);
+        }
+      } catch (err) {
+        console.warn('Initial Supabase fetch error:', err);
+      }
+    };
+    loadFromSupabase();
+  }, []);
+
+  // Sync Firebase Auth with Cloud SQL & Supabase
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       if (user) {
         try {
+          const supabaseData = await syncSupabaseTransactions(user.uid);
+          if (supabaseData && supabaseData.length > 0) {
+            setTransactions(supabaseData);
+          }
+
           const token = await user.getIdToken();
-          // Sync user record to PostgreSQL
+          // Sync user record to PostgreSQL API
           await fetch('/api/users/sync', {
             method: 'POST',
             headers: { Authorization: `Bearer ${token}` },
-          });
+          }).catch(() => {});
 
-          // Fetch transactions from Cloud SQL
+          // Fetch transactions from Cloud SQL API if available
           const res = await fetch('/api/transactions', {
             headers: { Authorization: `Bearer ${token}` },
-          });
-          if (res.ok) {
+          }).catch(() => null);
+
+          if (res && res.ok) {
             const data = await res.json();
-            setTransactions(data);
+            if (data && data.length > 0) setTransactions(data);
           }
 
-          // Fetch budget from Cloud SQL
+          // Fetch budget from Cloud SQL API
           const bRes = await fetch(`/api/budget?monthKey=${selectedMonth}`, {
             headers: { Authorization: `Bearer ${token}` },
-          });
-          if (bRes.ok) {
+          }).catch(() => null);
+
+          if (bRes && bRes.ok) {
             const bData = await bRes.json();
             setBudget(bData);
           }
         } catch (err) {
-          console.error('Cloud SQL sync error:', err);
+          console.error('Cloud SQL / Supabase sync error:', err);
         }
       }
     });
@@ -676,13 +696,9 @@ export default function App() {
         )}
 
         <div className="w-full space-y-4 pb-24">
-          {/* Cloud SQL & Firebase Auth Status Bar */}
-          <AuthBar user={currentUser} isDarkMode={isDarkMode} />
-
-
           {/* 2. Refined Segmented Control Tab Bar */}
           <div
-            className={`p-1.5 rounded-2xl border text-xs overflow-x-auto no-scrollbar flex items-center gap-1 shadow-xs ${
+            className={`p-1.5 rounded-2xl border text-xs overflow-x-auto no-scrollbar flex items-center gap-1 shadow-xs min-w-0 ${
               isDarkMode
                 ? 'bg-slate-900/80 border-white/10'
                 : 'bg-slate-200/50 border-slate-200/80'
@@ -690,7 +706,7 @@ export default function App() {
           >
             <button
               onClick={() => setActiveTab('overview')}
-              className={`flex-1 whitespace-nowrap py-2 px-2.5 sm:px-3 rounded-xl font-bold transition-all text-center text-[11px] sm:text-xs flex items-center justify-center gap-1 ${
+              className={`flex-1 min-w-[72px] sm:min-w-0 whitespace-nowrap py-2 px-2 sm:px-3 rounded-xl font-bold transition-all text-center text-[11px] sm:text-xs flex items-center justify-center gap-1 ${
                 activeTab === 'overview'
                   ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs ring-1 ring-black/5 dark:ring-white/10'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -700,7 +716,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveTab('income')}
-              className={`flex-1 whitespace-nowrap py-2 px-2 sm:px-2.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-1 text-[11px] sm:text-xs ${
+              className={`flex-1 min-w-[72px] sm:min-w-0 whitespace-nowrap py-2 px-2 sm:px-2.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-1 text-[11px] sm:text-xs ${
                 activeTab === 'income'
                   ? 'bg-emerald-500 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -709,7 +725,7 @@ export default function App() {
               <Wallet className="w-3.5 h-3.5 shrink-0" />
               <span>เงินเข้า</span>
               <span
-                className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+                className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold shrink-0 ${
                   activeTab === 'income'
                     ? 'bg-white/20 text-white'
                     : 'bg-slate-300/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
@@ -720,7 +736,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveTab('major_expense')}
-              className={`flex-1 whitespace-nowrap py-2 px-2 sm:px-2.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-1 text-[11px] sm:text-xs ${
+              className={`flex-1 min-w-[72px] sm:min-w-0 whitespace-nowrap py-2 px-2 sm:px-2.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-1 text-[11px] sm:text-xs ${
                 activeTab === 'major_expense'
                   ? 'bg-rose-500 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -729,7 +745,7 @@ export default function App() {
               <CreditCard className="w-3.5 h-3.5 shrink-0" />
               <span>รายจ่าย</span>
               <span
-                className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+                className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold shrink-0 ${
                   activeTab === 'major_expense'
                     ? 'bg-white/20 text-white'
                     : 'bg-slate-300/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
@@ -740,7 +756,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveTab('all')}
-              className={`flex-1 whitespace-nowrap py-2 px-2 sm:px-2.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-1 text-[11px] sm:text-xs ${
+              className={`flex-1 min-w-[72px] sm:min-w-0 whitespace-nowrap py-2 px-2 sm:px-2.5 rounded-xl font-bold transition-all text-center flex items-center justify-center gap-1 text-[11px] sm:text-xs ${
                 activeTab === 'all'
                   ? 'bg-indigo-600 text-white shadow-xs'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -748,7 +764,7 @@ export default function App() {
             >
               <span>📋 ทั้งหมด</span>
               <span
-                className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
+                className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold shrink-0 ${
                   activeTab === 'all'
                     ? 'bg-white/20 text-white'
                     : 'bg-slate-300/70 dark:bg-slate-800 text-slate-700 dark:text-slate-300'

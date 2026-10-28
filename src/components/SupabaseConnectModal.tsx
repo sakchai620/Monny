@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Key, CheckCircle, Database, Copy, ExternalLink, Sparkles } from 'lucide-react';
+import { X, Key, CheckCircle, Database, Copy, ExternalLink, Sparkles, Terminal } from 'lucide-react';
 import { SUPABASE_URL, getSupabaseAnonKey } from '../lib/supabase.ts';
 
 interface SupabaseConnectModalProps {
@@ -17,15 +17,41 @@ export const SupabaseConnectModal: React.FC<SupabaseConnectModalProps> = ({
 }) => {
   const [anonKey, setAnonKey] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [copiedSql, setCopiedSql] = useState(false);
+
+  const sqlScript = `-- 1. สร้างตารางบันทึกข้อมูลย้อนหลัง (transactions)
+CREATE TABLE IF NOT EXISTS transactions (
+  id TEXT PRIMARY KEY,
+  user_uid TEXT NOT NULL,
+  type TEXT NOT NULL,
+  title TEXT NOT NULL,
+  amount NUMERIC NOT NULL DEFAULT 0,
+  category TEXT,
+  date TEXT NOT NULL,
+  is_paid BOOLEAN DEFAULT true,
+  due_date TEXT,
+  note TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. ปิด RLS เพื่อให้เว็บแอปบันทึกข้อมูลได้ทันทีโดยไม่ถูกบล็อก
+ALTER TABLE transactions DISABLE ROW LEVEL SECURITY;`;
 
   useEffect(() => {
     if (isOpen) {
       setAnonKey(getSupabaseAnonKey());
       setSavedSuccess(false);
+      setCopiedSql(false);
     }
   }, [isOpen]);
 
   if (!isOpen) return null;
+
+  const handleCopySql = () => {
+    navigator.clipboard.writeText(sqlScript);
+    setCopiedSql(true);
+    setTimeout(() => setCopiedSql(false), 2000);
+  };
 
   const handleSave = () => {
     if (typeof window !== 'undefined') {
@@ -41,7 +67,7 @@ export const SupabaseConnectModal: React.FC<SupabaseConnectModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fade-in">
       <div
-        className={`w-full max-w-md rounded-3xl p-6 border shadow-2xl transition-all relative ${
+        className={`w-full max-w-lg rounded-3xl p-6 border shadow-2xl transition-all relative max-h-[90vh] overflow-y-auto ${
           isDarkMode
             ? 'bg-slate-900/95 border-pink-500/30 text-white shadow-pink-900/20'
             : 'bg-white/95 border-pink-200 text-slate-800 shadow-pink-500/10'
@@ -55,11 +81,11 @@ export const SupabaseConnectModal: React.FC<SupabaseConnectModalProps> = ({
         </button>
 
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold shadow-md shadow-emerald-500/30">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold shadow-md shadow-emerald-500/30 shrink-0">
             <Database className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg font-bold">เชื่อมต่อ Supabase Project</h3>
+            <h3 className="text-lg font-bold">เชื่อมต่อ & ตั้งค่า Supabase Project</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
               โครงการ Monny (<span className="font-mono text-emerald-600 dark:text-emerald-400">azmbasuciqfgxajalhxn</span>)
             </p>
@@ -67,20 +93,27 @@ export const SupabaseConnectModal: React.FC<SupabaseConnectModalProps> = ({
         </div>
 
         <div className="space-y-4 text-xs">
-          <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 dark:text-emerald-300">
-            <div className="font-semibold flex items-center gap-1.5 mb-1">
-              <Sparkles className="w-4 h-4 text-emerald-500" />
-              <span>วิธีเอา API Key มาใส่ (ใช้เวลา 10 วินาที):</span>
+          {/* SQL Setup Instruction */}
+          <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-200">
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="font-bold flex items-center gap-1.5 text-xs">
+                <Terminal className="w-4 h-4 text-amber-500" />
+                <span>คำสั่งสร้างตารางใน Supabase (สำคัญมาก):</span>
+              </span>
+              <button
+                onClick={handleCopySql}
+                className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-lg bg-amber-500/20 text-amber-800 dark:text-amber-300 hover:bg-amber-500/30 transition-all"
+              >
+                {copiedSql ? <CheckCircle className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                <span>{copiedSql ? 'คัดลอก SQL แล้ว!' : 'คัดลอก SQL'}</span>
+              </button>
             </div>
-            <ol className="list-decimal list-inside space-y-1 text-[11px] text-slate-600 dark:text-slate-300">
-              <li>
-                ในหน้า Supabase Dashboard คลิกปุ่ม <b>"API Keys"</b> (มุมขวาล่าง) หรือไอคอน <b>⚙️ Settings -&gt; API</b>
-              </li>
-              <li>
-                คัดลอกคีย์ตรงช่อง <b><span className="font-mono bg-emerald-100 dark:bg-emerald-950/80 px-1 py-0.5 rounded text-emerald-700 dark:text-emerald-300">anon</span> <span className="font-mono text-[10px] text-slate-500">(Public API Key)</span></b>
-              </li>
-              <li>นำมาวางในช่องด้านล่างนี้ได้เลยครับ</li>
-            </ol>
+            <p className="text-[11px] text-slate-600 dark:text-slate-300 mb-2">
+              หากบันทึกข้อมูลแล้วไม่ขึ้น ให้ไปที่ Supabase ➔ <b>SQL Editor</b> ➔ วางคำสั่งด้านล่างนี้แล้วกด <b>Run</b>:
+            </p>
+            <pre className="p-2.5 rounded-xl bg-slate-900 text-slate-200 font-mono text-[10px] overflow-x-auto whitespace-pre-wrap select-all border border-slate-700">
+              {sqlScript}
+            </pre>
           </div>
 
           <div>
@@ -137,3 +170,4 @@ export const SupabaseConnectModal: React.FC<SupabaseConnectModalProps> = ({
     </div>
   );
 };
+
