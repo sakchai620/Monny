@@ -514,21 +514,20 @@ export default function App() {
         isDarkMode ? 'dark bg-gradient-dark-mesh text-slate-100' : 'bg-gradient-pink-mesh text-slate-900'
       }`}
     >
-      {/* Soft Ambient Light Orbs with Shimmer & Float */}
+      {/* Custom Romantic Background Photo Layer */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {isDarkMode ? (
-          <>
-            <div className="absolute -top-40 -right-40 w-[30rem] h-[30rem] rounded-full bg-pink-600/20 blur-[140px] animate-float" />
-            <div className="absolute top-1/3 -left-40 w-[30rem] h-[30rem] rounded-full bg-rose-600/20 blur-[150px] animate-shimmer" />
-            <div className="absolute -bottom-40 left-1/3 w-[34rem] h-[34rem] rounded-full bg-fuchsia-600/15 blur-[160px] animate-float" />
-          </>
-        ) : (
-          <>
-            <div className="absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-pink-300/60 blur-[120px] animate-float" />
-            <div className="absolute top-1/4 -left-32 w-[28rem] h-[28rem] rounded-full bg-rose-300/50 blur-[130px] animate-shimmer" />
-            <div className="absolute -bottom-32 left-1/4 w-[32rem] h-[32rem] rounded-full bg-pink-200/70 blur-[140px] animate-float" />
-          </>
-        )}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-500 scale-105 opacity-90"
+          style={{ backgroundImage: `url('/bg-couple.png')` }}
+        />
+        {/* Soft Glass Tint Overlay for readability */}
+        <div
+          className={`absolute inset-0 transition-colors duration-300 ${
+            isDarkMode
+              ? 'bg-slate-950/80 backdrop-blur-[3px]'
+              : 'bg-gradient-to-b from-pink-100/80 via-white/75 to-pink-100/85 backdrop-blur-[2px]'
+          }`}
+        />
       </div>
 
       {/* Top Header Bar */}

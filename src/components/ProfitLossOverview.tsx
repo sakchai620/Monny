@@ -117,28 +117,28 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
         </div>
 
         {/* Primary Cash Flow Bar: 1.เงินเข้า - 2.ค่าใช้จ่าย = 3.เงินคงเหลือ */}
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-3 pt-4 mt-4 border-t border-slate-200/70 dark:border-white/10 text-xs min-w-0">
-          {/* Card 1: เงินเข้าเดือนนี้ */}
+        <div className="relative z-10 grid grid-cols-3 gap-1.5 sm:gap-3 pt-3.5 mt-3 border-t border-slate-200/70 dark:border-white/10 text-xs min-w-0">
+          {/* Card 1: เงินเข้า */}
           <div
             onClick={() => onSelectTab('income')}
-            className={`p-3.5 rounded-2xl border cursor-pointer transition-all min-w-0 overflow-hidden ${
+            className={`p-2.5 sm:p-3.5 rounded-2xl border cursor-pointer transition-all min-w-0 overflow-hidden ${
               isDarkMode
                 ? 'glass-inner-dark hover:border-emerald-500/40'
                 : 'glass-inner-light hover:border-emerald-300'
             }`}
           >
-            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px] mb-1 min-w-0 gap-1">
-              <span className="flex items-center gap-1.5 min-w-0">
+            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mb-1 min-w-0 gap-0.5">
+              <span className="flex items-center gap-1 min-w-0">
                 <Wallet className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                <span className="font-bold text-slate-700 dark:text-slate-300 truncate">1. เงินเข้าเดือนนี้</span>
+                <span className="font-bold text-slate-700 dark:text-slate-300 truncate">1. เงินเข้า</span>
               </span>
-              <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+              <ArrowRight className="w-3 h-3 text-slate-400 shrink-0 hidden xs:block" />
             </div>
-            <div className="text-lg sm:text-xl font-extrabold text-emerald-600 dark:text-emerald-400 font-num tabular-nums truncate">
+            <div className="text-sm sm:text-lg md:text-xl font-extrabold text-emerald-600 dark:text-emerald-400 font-num tabular-nums truncate">
               +{formatThaiCurrency(summary.totalIncome)}
             </div>
-            <div className="text-[10px] text-slate-400 mt-1 flex items-center justify-between gap-1 min-w-0">
-              <span className="truncate">เงินเดือน/รายรับที่เพิ่ม</span>
+            <div className="text-[9px] sm:text-[10px] text-slate-400 mt-1 flex items-center justify-between gap-0.5 min-w-0">
+              <span className="truncate">เงินเดือน/รายรับ</span>
               {onAddNew && (
                 <button
                   type="button"
@@ -146,7 +146,7 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
                     e.stopPropagation();
                     onAddNew('income');
                   }}
-                  className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline shrink-0 whitespace-nowrap"
+                  className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline shrink-0 whitespace-nowrap ml-0.5"
                 >
                   + เพิ่ม
                 </button>
@@ -154,26 +154,26 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
             </div>
           </div>
 
-          {/* Card 2: ค่าใช้จ่าย */}
+          {/* Card 2: รายจ่าย */}
           <div
             onClick={() => onSelectTab('expense')}
-            className={`p-3.5 rounded-2xl border cursor-pointer transition-all min-w-0 overflow-hidden ${
+            className={`p-2.5 sm:p-3.5 rounded-2xl border cursor-pointer transition-all min-w-0 overflow-hidden ${
               isDarkMode
                 ? 'glass-inner-dark hover:border-rose-500/40'
                 : 'glass-inner-light hover:border-rose-300'
             }`}
           >
-            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px] mb-1 min-w-0 gap-1">
-              <span className="flex items-center gap-1.5 min-w-0">
+            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mb-1 min-w-0 gap-0.5">
+              <span className="flex items-center gap-1 min-w-0">
                 <CreditCard className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                <span className="font-bold text-slate-700 dark:text-slate-300 truncate">2. รายจ่ายทั้งหมด</span>
+                <span className="font-bold text-slate-700 dark:text-slate-300 truncate">2. รายจ่าย</span>
               </span>
-              <ArrowRight className="w-3 h-3 text-slate-400 shrink-0" />
+              <ArrowRight className="w-3 h-3 text-slate-400 shrink-0 hidden xs:block" />
             </div>
-            <div className="text-lg sm:text-xl font-extrabold text-rose-600 dark:text-rose-400 font-num tabular-nums truncate">
+            <div className="text-sm sm:text-lg md:text-xl font-extrabold text-rose-600 dark:text-rose-400 font-num tabular-nums truncate">
               -{formatThaiCurrency(summary.totalMajorExpenses)}
             </div>
-            <div className="text-[10px] text-slate-400 mt-1 flex items-center justify-between gap-1 min-w-0">
+            <div className="text-[9px] sm:text-[10px] text-slate-400 mt-1 flex items-center justify-between gap-0.5 min-w-0">
               <span className="truncate">จ่ายแล้ว {formatThaiCurrency(summary.paidExpenses)}</span>
               {onAddNew && (
                 <button
@@ -182,7 +182,7 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
                     e.stopPropagation();
                     onAddNew('major_expense');
                   }}
-                  className="text-rose-600 dark:text-rose-400 font-bold hover:underline shrink-0 whitespace-nowrap"
+                  className="text-rose-600 dark:text-rose-400 font-bold hover:underline shrink-0 whitespace-nowrap ml-0.5"
                 >
                   + เพิ่ม
                 </button>
@@ -190,21 +190,20 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
             </div>
           </div>
 
-          {/* Card 3: เงินคงเหลือสุทธิ */}
+          {/* Card 3: คงเหลือ */}
           <div
-            className={`p-3.5 rounded-2xl border transition-all min-w-0 overflow-hidden ${
+            className={`p-2.5 sm:p-3.5 rounded-2xl border transition-all min-w-0 overflow-hidden ${
               isDarkMode ? 'glass-inner-dark' : 'glass-inner-light'
             }`}
           >
-            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[11px] mb-1 min-w-0 gap-1">
-              <span className="flex items-center gap-1.5 min-w-0">
+            <div className="flex items-center justify-between text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mb-1 min-w-0 gap-0.5">
+              <span className="flex items-center gap-1 min-w-0">
                 <Sparkles className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                <span className="font-bold text-slate-700 dark:text-slate-300 truncate">3. เงินคงเหลือสุทธิ</span>
+                <span className="font-bold text-slate-700 dark:text-slate-300 truncate">3. คงเหลือ</span>
               </span>
-              <span className="text-[10px] text-slate-400 font-medium shrink-0 whitespace-nowrap">เงินเข้า - รายจ่าย</span>
             </div>
             <div
-              className={`text-lg sm:text-xl font-extrabold font-num tabular-nums truncate ${
+              className={`text-sm sm:text-lg md:text-xl font-extrabold font-num tabular-nums truncate ${
                 summary.netCashFlow > 0
                   ? 'text-emerald-600 dark:text-emerald-400'
                   : summary.netCashFlow < 0
@@ -214,12 +213,8 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
             >
               {formatThaiCurrency(summary.netCashFlow, true)}
             </div>
-            <div className="text-[10px] text-slate-400 mt-1 truncate">
-              {summary.netCashFlow > 0
-                ? 'ยอดเงินเหลือใช้จ่าย/เก็บออม'
-                : summary.netCashFlow < 0
-                ? 'รายจ่ายเกินเงินที่ได้รับ'
-                : 'ยอดเงินเข้าเท่ากับรายจ่ายพอดี'}
+            <div className="text-[9px] sm:text-[10px] text-slate-400 mt-1 truncate">
+              เงินเข้า - รายจ่าย
             </div>
           </div>
         </div>

@@ -302,13 +302,13 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
             </div>
 
             {/* Quick Amount Shortcuts */}
-            <div className="flex items-center gap-1 mt-1.5">
+            <div className="flex flex-wrap items-center gap-1 mt-1.5 min-w-0">
               {[500, 1000, 5000, 10000].map((v) => (
                 <button
                   key={v}
                   type="button"
                   onClick={() => handleAddAmount(v)}
-                  className={`text-[10px] px-2 py-0.5 rounded-lg border font-num transition-all ${
+                  className={`text-[10px] px-1.5 py-0.5 rounded-lg border font-num shrink-0 transition-all ${
                     isDarkMode
                       ? 'border-white/10 text-slate-400 hover:text-white hover:bg-white/5'
                       : 'border-slate-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100'
@@ -340,20 +340,20 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
 
             {/* Expense Paid status toggle */}
             {txType === 'expense' && (
-              <div className="mt-2 flex items-center justify-between">
-                <label className="flex items-center gap-2 cursor-pointer select-none text-xs text-slate-600 dark:text-slate-300">
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-1 text-xs min-w-0">
+                <label className="flex items-center gap-1.5 cursor-pointer select-none text-xs text-slate-600 dark:text-slate-300 min-w-0">
                   <input
                     type="checkbox"
                     checked={isPaid}
                     onChange={(e) => setIsPaid(e.target.checked)}
-                    className="w-4 h-4 rounded text-rose-600 focus:ring-rose-500 border-slate-300"
+                    className="w-4 h-4 rounded text-rose-600 focus:ring-rose-500 border-slate-300 shrink-0"
                   />
-                  <span>จ่ายเรียบร้อยแล้ว</span>
+                  <span className="truncate">จ่ายเรียบร้อยแล้ว</span>
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowNoteInput(!showNoteInput)}
-                  className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline"
+                  className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline shrink-0 whitespace-nowrap"
                 >
                   {showNoteInput ? '- ซ่อนหมายเหตุ' : '+ เพิ่มหมายเหตุ'}
                 </button>
