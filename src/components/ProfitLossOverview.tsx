@@ -57,10 +57,10 @@ export const ProfitLossOverview: React.FC<ProfitLossOverviewProps> = ({
     <div className="space-y-4">
       {/* Master Financial Result Card */}
       <div
-        className={`rounded-3xl p-5 sm:p-6 border transition-all relative overflow-hidden ${
+        className={`rounded-3xl p-5 sm:p-6 border-2 transition-all relative overflow-hidden shadow-xl backdrop-blur-xl ${
           isDarkMode
-            ? 'glass-card-dark text-white'
-            : 'glass-card-light text-slate-800'
+            ? 'bg-slate-900/95 border-pink-500/30 text-white glass-card-dark'
+            : 'bg-white/95 border-pink-300/70 text-slate-800 glass-card-light'
         }`}
       >
         {/* Shimmering Accent Light */}

@@ -50,8 +50,10 @@ export const ExpenseDonutChart: React.FC<ExpenseDonutChartProps> = ({
   if (categories.length === 0 || totalExpense === 0) {
     return (
       <div
-        className={`rounded-3xl p-6 border text-center ${
-          isDarkMode ? 'glass-card-dark' : 'glass-card-light'
+        className={`rounded-3xl p-6 border-2 text-center shadow-xl backdrop-blur-xl ${
+          isDarkMode
+            ? 'bg-slate-900/95 border-pink-500/30 text-white glass-card-dark'
+            : 'bg-white/95 border-pink-300/70 text-slate-800 glass-card-light'
         }`}
       >
         <PieChart className="w-8 h-8 text-slate-400 mx-auto mb-2 opacity-60" />
@@ -69,8 +71,10 @@ export const ExpenseDonutChart: React.FC<ExpenseDonutChartProps> = ({
 
   return (
     <div
-      className={`rounded-3xl p-5 sm:p-6 border ${
-        isDarkMode ? 'glass-card-dark' : 'glass-card-light'
+      className={`rounded-3xl p-5 sm:p-6 border-2 transition-all shadow-xl backdrop-blur-xl ${
+        isDarkMode
+          ? 'bg-slate-900/95 border-pink-500/30 text-white glass-card-dark'
+          : 'bg-white/95 border-pink-300/70 text-slate-800 glass-card-light'
       }`}
     >
       <div className="flex items-center justify-between mb-4">

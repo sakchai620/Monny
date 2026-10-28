@@ -137,10 +137,10 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
 
   return (
     <div
-      className={`rounded-3xl p-5 sm:p-6 border transition-all ${
+      className={`rounded-3xl p-5 sm:p-6 border-2 transition-all shadow-xl backdrop-blur-xl ${
         isDarkMode
-          ? 'glass-card-dark text-white'
-          : 'glass-card-light text-slate-800'
+          ? 'bg-slate-900/95 border-pink-500/30 text-white glass-card-dark'
+          : 'bg-white/95 border-pink-300/70 text-slate-800 glass-card-light'
       }`}
     >
       <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-3 mb-4 min-w-0">
