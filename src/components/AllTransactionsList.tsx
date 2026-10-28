@@ -110,6 +110,11 @@ export const AllTransactionsList: React.FC<AllTransactionsListProps> = ({
       {/* List */}
       {filtered.length === 0 ? (
         <div
+          style={{
+            backgroundColor: isDarkMode ? 'rgba(26, 10, 24, 0.97)' : 'rgba(255, 255, 255, 0.97)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+          }}
           className={`rounded-3xl p-8 border text-center ${
             isDarkMode ? 'glass-card-dark' : 'glass-card-light'
           }`}
@@ -142,6 +147,11 @@ export const AllTransactionsList: React.FC<AllTransactionsListProps> = ({
             return (
               <div
                 key={tx.id}
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(26, 10, 24, 0.97)' : 'rgba(255, 255, 255, 0.97)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                }}
                 className={`rounded-2xl p-4 border transition-all flex items-center justify-between gap-3 ${
                   isDarkMode
                     ? 'glass-card-dark hover:border-white/20'

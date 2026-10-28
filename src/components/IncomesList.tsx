@@ -97,6 +97,11 @@ export const IncomesList: React.FC<IncomesListProps> = ({
 
       {/* Summary Card */}
       <div
+        style={{
+          backgroundColor: isDarkMode ? 'rgba(26, 10, 24, 0.97)' : 'rgba(255, 255, 255, 0.97)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+        }}
         className={`rounded-3xl p-5 border flex items-center justify-between gap-4 ${
           isDarkMode ? 'glass-card-dark' : 'glass-card-light'
         }`}
@@ -126,6 +131,11 @@ export const IncomesList: React.FC<IncomesListProps> = ({
       {/* Incomes List or Empty State */}
       {incomes.length === 0 ? (
         <div
+          style={{
+            backgroundColor: isDarkMode ? 'rgba(26, 10, 24, 0.97)' : 'rgba(255, 255, 255, 0.97)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+          }}
           className={`p-10 rounded-3xl border text-center ${
             isDarkMode ? 'glass-card-dark' : 'glass-card-light'
           }`}
@@ -152,6 +162,11 @@ export const IncomesList: React.FC<IncomesListProps> = ({
             return (
               <div
                 key={item.id}
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(26, 10, 24, 0.97)' : 'rgba(255, 255, 255, 0.97)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                }}
                 className={`flex items-center justify-between p-4 rounded-3xl border transition-all ${
                   isDarkMode ? 'glass-card-dark' : 'glass-card-light'
                 }`}

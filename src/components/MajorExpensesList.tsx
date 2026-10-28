@@ -111,6 +111,11 @@ export const MajorExpensesList: React.FC<MajorExpensesListProps> = ({
       {/* KPI Status Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div
+          style={{
+            backgroundColor: isDarkMode ? 'rgba(26, 10, 24, 0.97)' : 'rgba(255, 255, 255, 0.97)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+          }}
           className={`p-4 rounded-3xl border ${
             isDarkMode ? 'glass-card-dark' : 'glass-card-light'
           }`}
@@ -127,6 +132,11 @@ export const MajorExpensesList: React.FC<MajorExpensesListProps> = ({
         </div>
 
         <div
+          style={{
+            backgroundColor: isDarkMode ? 'rgba(26, 10, 24, 0.97)' : 'rgba(255, 255, 255, 0.97)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+          }}
           className={`p-4 rounded-3xl border ${
             isDarkMode ? 'glass-card-dark' : 'glass-card-light'
           }`}
@@ -144,6 +154,11 @@ export const MajorExpensesList: React.FC<MajorExpensesListProps> = ({
         </div>
 
         <div
+          style={{
+            backgroundColor: isDarkMode ? 'rgba(26, 10, 24, 0.97)' : 'rgba(255, 255, 255, 0.97)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+          }}
           className={`p-4 rounded-3xl border ${
             isDarkMode ? 'glass-card-dark' : 'glass-card-light'
           }`}
@@ -247,6 +262,11 @@ export const MajorExpensesList: React.FC<MajorExpensesListProps> = ({
             return (
               <div
                 key={item.id}
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(26, 10, 24, 0.97)' : 'rgba(255, 255, 255, 0.97)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                }}
                 className={`flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-3xl border transition-all ${
                   item.isPaid
                     ? isDarkMode
