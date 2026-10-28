@@ -60,7 +60,7 @@ export const AllTransactionsList: React.FC<AllTransactionsListProps> = ({
             className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs font-black shadow-md shadow-pink-500/20 active:scale-95 transition-all cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 stroke-[3]" />
-            <span>← ย้อนกลับไปหน้าภาพรวม</span>
+            <span>ย้อนกลับไปหน้าภาพรวม</span>
           </button>
         </div>
       )}
@@ -149,7 +149,7 @@ export const AllTransactionsList: React.FC<AllTransactionsListProps> = ({
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-indigo-600 text-white text-xs font-bold shadow-md shadow-indigo-600/20 hover:bg-indigo-700 transition-all"
           >
             <Plus className="w-4 h-4" />
-            <span>+ บันทึกรายการ</span>
+            <span>บันทึกรายการ</span>
           </button>
         </div>
       ) : (

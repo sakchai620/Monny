@@ -165,11 +165,8 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
           </div>
           <div className="min-w-0">
             <h3 className="text-sm font-bold text-slate-800 dark:text-white truncate">
-              บันทึกรายการด่วน (เพิ่มในหน้าเดียว)
+              บันทึกรายการ
             </h3>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-              เลือกจากดรอปดาวน์ หรือพิมพ์ชื่อเองได้อิสระ
-            </p>
           </div>
         </div>
 
@@ -193,7 +190,7 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
             }`}
           >
             <Wallet className="w-3.5 h-3.5 shrink-0" />
-            <span className="whitespace-nowrap">+ เงินเข้า</span>
+            <span className="whitespace-nowrap">เงินเข้า</span>
           </button>
 
           <button
@@ -210,7 +207,7 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
             }`}
           >
             <CreditCard className="w-3.5 h-3.5 shrink-0" />
-            <span className="whitespace-nowrap">- รายจ่าย</span>
+            <span className="whitespace-nowrap">รายจ่าย</span>
           </button>
         </div>
       </div>
@@ -219,10 +216,7 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
         {/* Row 1: Editable Title Input */}
         <div>
           <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-            ชื่อรายการ <span className="text-rose-500">*</span>{' '}
-            <span className="text-[11px] font-normal text-slate-400">
-              (พิมพ์ชื่อเอง หรือกดเลือกด่วนด้านล่าง)
-            </span>
+            ชื่อรายการ <span className="text-rose-500">*</span>
           </label>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 min-w-0">
@@ -396,7 +390,7 @@ export const InlineQuickAddCard: React.FC<InlineQuickAddCardProps> = ({
           >
             <Plus className="w-5 h-5 stroke-[3]" />
             <span className="tracking-wide">
-              {txType === 'income' ? '+ บันทึกเงินเข้า' : '+ บันทึกรายจ่าย'} (
+              {txType === 'income' ? 'บันทึกเงินเข้า' : 'บันทึกรายจ่าย'} (
               {amount ? `฿${parseFloat(amount || '0').toLocaleString()}` : 'ระบุยอดเงิน'})
             </span>
           </button>

@@ -96,9 +96,6 @@ export const ExpenseDonutChart: React.FC<ExpenseDonutChartProps> = ({
             <h3 className="text-sm font-bold text-slate-800 dark:text-white">
               สัดส่วนค่าใช้จ่ายหลักประจำเดือน
             </h3>
-            <p className="text-xs text-slate-500">
-              รวมค่าหลัก {formatThaiCurrency(totalExpense)} (ชำระแล้ว {formatThaiCurrency(totalPaid)})
-            </p>
           </div>
         </div>
       </div>

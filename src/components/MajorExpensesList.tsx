@@ -97,7 +97,7 @@ export const MajorExpensesList: React.FC<MajorExpensesListProps> = ({
             className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs font-black shadow-md shadow-pink-500/20 active:scale-95 transition-all cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 stroke-[3]" />
-            <span>← ย้อนกลับไปหน้าภาพรวม</span>
+            <span>ย้อนกลับไปหน้าภาพรวม</span>
           </button>
         </div>
       )}
@@ -110,9 +110,7 @@ export const MajorExpensesList: React.FC<MajorExpensesListProps> = ({
               ค่าใช้จ่ายหลักประจำเดือน (Major Monthly Bills)
             </h2>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            บันทึกเฉพาะภาระค่าใช้จ่ายหลัก ค่าผ่อน บิล และประกัน พร้อมสลับสถานะชำระเงินใน 1 แตะ
-          </p>
+          {/* Subtext paragraph removed as requested */}
         </div>
 
         <button

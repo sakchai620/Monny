@@ -162,9 +162,6 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
               <h3 className="text-base font-bold text-slate-800 dark:text-white">
                 บันทึกรายการทางการเงิน
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                เลือกจากดรอปดาวน์ หรือพิมพ์เองได้เลย
-              </p>
             </div>
           </div>
           <button
@@ -223,10 +220,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
           {/* Item Name: Dropdown + Editable Text */}
           <div className="space-y-1.5">
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
-              ชื่อรายการ <span className="text-rose-500">*</span>{' '}
-              <span className="text-[11px] font-normal text-slate-400">
-                (เลือกจากดรอปดาวน์ หรือพิมพ์เองได้)
-              </span>
+              ชื่อรายการ <span className="text-rose-500">*</span>
             </label>
 
             {/* Dropdown Preset */}
